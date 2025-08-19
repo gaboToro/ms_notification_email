@@ -28,7 +28,7 @@ services:
   # Test producer service
   test_producer:
     build: .
-    command: python tests/test_producer.py # Runs the test script
+    command: python tests/producer_test.py # Runs the test script
     depends_on:
       - rabbitmq # Ensures RabbitMQ is ready
     env_file:
