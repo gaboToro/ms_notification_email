@@ -1,0 +1,13 @@
+fastapi                # Web framework for building APIs
+uvicorn[standard]      # ASGI server to run FastAPI applications
+gunicorn               # Production-ready WSGI/ASGI server (can run with Uvicorn workers)
+
+python-dotenv          # Load environment variables from a .env file
+
+pydantic               # Data validation and settings management using Python type annotations
+email-validator        # Validate email addresses
+
+aio_pika               # Async RabbitMQ client for sending and receiving messages
+
+pytest                 # Testing framework for Python
+pytest-asyncio         # Async support for pytest

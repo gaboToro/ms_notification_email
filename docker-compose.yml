@@ -1,0 +1,38 @@
+services:
+  # RabbitMQ service, the message broker
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"   # Port for communication with microservices
+      - "15672:15672" # Port for the web management interface
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+
+  # Email Notifications microservice
+  email_notifications:
+    build: .
+    container_name: email_notifications
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      - rabbitmq # Ensures RabbitMQ starts before this service
+    env_file:
+      - .env
+
+  # Test producer service
+  test_producer:
+    build: .
+    command: python tests/producer_test.py # Runs the test script
+    depends_on:
+      - rabbitmq # Ensures RabbitMQ is ready
+    env_file:
+      - .env
+
+volumes:
+  rabbitmq_data:
